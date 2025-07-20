@@ -1,35 +1,61 @@
-<h2>Gestión de Espacios Físicos</h2>
+<section class="container">
+  <h2>Gestión de Espacios Físicos</h2>
 
-<form [formGroup]="form" (ngSubmit)="submit()" class="form">
-  <input type="text" formControlName="nombre" placeholder="Nombre" />
-  <input type="number" formControlName="capacidad" placeholder="Capacidad" />
-  <input type="text" formControlName="ubicacion" placeholder="Ubicación" />
-  <button type="submit">{{ editing() ? 'Actualizar' : 'Crear' }}</button>
-  <button type="button" (click)="cancel()" *ngIf="editing()">Cancelar</button>
-</form>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombre">Nombre del espacio</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Espacio" />
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Capacidad</th>
-      <th>Ubicación</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for(espacio of espacios(); track espacio.id) {
+    <div class="form-field">
+      <label for="capacidad">Capacidad máxima</label>
+      <input id="capacidad" type="number" formControlName="capacidad" placeholder="Capacidad" />
+    </div>
+
+    <div class="form-field">
+      <label for="ubicacion">Ubicación física</label>
+      <input id="ubicacion" type="text" formControlName="ubicacion" placeholder="Ubicación" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
       <tr>
-        <td>{{ espacio.id }}</td>
-        <td>{{ espacio.nombre }}</td>
-        <td>{{ espacio.capacidad }}</td>
-        <td>{{ espacio.ubicacion }}</td>
-        <td>
-          <button (click)="edit(espacio)">Editar</button>
-          <button (click)="delete(espacio.id)">Eliminar</button>
-        </td>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Capacidad</th>
+        <th>Ubicación</th>
+        <th>Acciones</th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for(espacio of espacios(); track espacio.id) {
+        <tr>
+          <td>{{ espacio.id }}</td>
+          <td>{{ espacio.nombre }}</td>
+          <td>{{ espacio.capacidad }}</td>
+          <td>{{ espacio.ubicacion }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(espacio)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(espacio.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
