@@ -1,0 +1,61 @@
+<section class="container">
+  <h2>Gestión de Horarios</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="diaSemana">Día de la Semana</label>
+      <input id="diaSemana" type="text" formControlName="diaSemana" placeholder="Día" />
+    </div>
+
+    <div class="form-field">
+      <label for="horaInicio">Hora de Inicio</label>
+      <input id="horaInicio" type="time" formControlName="horaInicio" />
+    </div>
+
+    <div class="form-field">
+      <label for="horaFin">Hora de Fin</label>
+      <input id="horaFin" type="time" formControlName="horaFin" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Día</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(horario of horarios(); track horario.id) {
+        <tr>
+          <td>{{ horario.id }}</td>
+          <td>{{ horario.diaSemana }}</td>
+          <td>{{ horario.horaInicio }}</td>
+          <td>{{ horario.horaFin }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(horario)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(horario.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
