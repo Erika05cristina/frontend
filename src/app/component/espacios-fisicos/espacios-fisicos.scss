@@ -1,0 +1,31 @@
+.form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    flex: 1;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  button {
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,35 @@
+<h2>Gestión de Espacios Físicos</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <input type="text" formControlName="nombre" placeholder="Nombre" />
+  <input type="number" formControlName="capacidad" placeholder="Capacidad" />
+  <input type="text" formControlName="ubicacion" placeholder="Ubicación" />
+  <button type="submit">{{ editing() ? 'Actualizar' : 'Crear' }}</button>
+  <button type="button" (click)="cancel()" *ngIf="editing()">Cancelar</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Capacidad</th>
+      <th>Ubicación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(espacio of espacios(); track espacio.id) {
+      <tr>
+        <td>{{ espacio.id }}</td>
+        <td>{{ espacio.nombre }}</td>
+        <td>{{ espacio.capacidad }}</td>
+        <td>{{ espacio.ubicacion }}</td>
+        <td>
+          <button (click)="edit(espacio)">Editar</button>
+          <button (click)="delete(espacio.id)">Eliminar</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
