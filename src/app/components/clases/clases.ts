@@ -50,7 +50,10 @@ export class Clases {
 
     const payload = {
       aula,
-      asignatura: { id: asignaturaId }
+      asignatura: { id: asignaturaId },
+      grupo: null,
+      docente: null,
+      espacioFisico: null
     };  
 
     if (this.editing()) {
