@@ -1,0 +1,61 @@
+<section class="container">
+  <h2>Gestión de Docentes</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombres">Nombres</label>
+      <input id="nombres" type="text" formControlName="nombres" placeholder="Nombres del docente" />
+    </div>
+
+    <div class="form-field">
+      <label for="apellidos">Apellidos</label>
+      <input id="apellidos" type="text" formControlName="apellidos" placeholder="Apellidos del docente" />
+    </div>
+
+    <div class="form-field">
+      <label for="especialidad">Especialidad</label>
+      <input id="especialidad" type="text" formControlName="especialidad" placeholder="Especialidad" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Especialidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(docente of docentes(); track docente.id) {
+        <tr>
+          <td>{{ docente.id }}</td>
+          <td>{{ docente.nombres }}</td>
+          <td>{{ docente.apellidos }}</td>
+          <td>{{ docente.especialidad }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(docente)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(docente.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
