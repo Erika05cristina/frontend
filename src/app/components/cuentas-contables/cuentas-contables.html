@@ -1,0 +1,54 @@
+<section class="container">
+  <h2>Gestión de Cuentas Contables</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="codigo">Código</label>
+      <input id="codigo" type="text" formControlName="codigo" placeholder="Código de la cuenta" />
+    </div>
+
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Nombre de la cuenta" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(cuenta of cuentas(); track cuenta.id) {
+        <tr>
+          <td>{{ cuenta.id }}</td>
+          <td>{{ cuenta.codigo }}</td>
+          <td>{{ cuenta.nombre }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(cuenta)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(cuenta.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
