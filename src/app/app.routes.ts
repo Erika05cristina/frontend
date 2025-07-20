@@ -3,6 +3,7 @@ import { EspaciosFisicos } from './components/espacios-fisicos/espacios-fisicos'
 import { Estudiantes } from './components/estudiantes/estudiantes';
 import { Grupos } from './components/grupos/grupos';
 import { Horarios } from './components/horarios/horarios';
+import { Matriculas } from './components/matriculas/matriculas';
 
 export const routes: Routes = [
   { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
@@ -10,4 +11,5 @@ export const routes: Routes = [
   { path: 'estudiantes', component: Estudiantes },
   { path: 'grupos', component: Grupos },
   { path: 'horarios', component: Horarios },
+  { path: 'matriculas', component: Matriculas },
 ];

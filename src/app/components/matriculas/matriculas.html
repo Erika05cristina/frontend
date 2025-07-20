@@ -1,0 +1,47 @@
+<section class="container">
+  <h2>Gestión de Matrículas</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="fecha">Fecha de Matrícula</label>
+      <input id="fecha" type="date" formControlName="fecha" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(matricula of matriculas(); track matricula.id) {
+        <tr>
+          <td>{{ matricula.id }}</td>
+          <td>{{ matricula.fecha }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(matricula)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(matricula.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
