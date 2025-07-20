@@ -1,0 +1,54 @@
+<section class="container">
+  <h2>Gestión de Grupos</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Grupos" />
+    </div>
+
+    <div class="form-field">
+      <label for="modalidad">Modalidad</label>
+      <input id="modalidad" type="text" formControlName="modalidad" placeholder="Modalidad" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Modalidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(grupo of grupos(); track grupo.id) {
+        <tr>
+          <td>{{ grupo.id }}</td>
+          <td>{{ grupo.nombre }}</td>
+          <td>{{ grupo.modalidad }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(grupo)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(grupo.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
