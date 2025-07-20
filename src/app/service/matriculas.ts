@@ -1,10 +1,39 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Estudiante } from './estudiantes';
 
 export type Matricula = {
   id: number;
   fecha: string;
+
+  estudiante: {
+    id: number;
+    nombres?: string;
+    apellidos?: string;
+    cedula?: string;
+    fechaNacimiento?: string;
+    direccion?: string;
+    contactoEmergencia?: string;
+  };
+
+  periodoLectivo?: {
+    id: number;
+    nombre?: string;
+    fechaInicio?: string;
+    fechaFin?: string;
+  };
+
+  rubros?: {
+    id: number;
+    nombre?: string;
+    valor?: number;
+  }[];
+
+  clases?: {
+    id: number;
+    nombre?: string;
+  }[];
 };
 
 @Injectable({
@@ -27,7 +56,7 @@ export class Matriculas {
   }
 
   update(id: number, data: Omit<Matricula, 'id'>): Observable<Matricula> {
-    return this.http.put<Matricula>(`${this.baseUrl}/${id}`, { id, ...data });
+    return this.http.put<Matricula>(`${this.baseUrl}/${id}`, data);
   }
 
   delete(id: number): Observable<void> {

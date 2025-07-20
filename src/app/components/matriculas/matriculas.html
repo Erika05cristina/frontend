@@ -7,6 +7,16 @@
       <input id="fecha" type="date" formControlName="fecha" />
     </div>
 
+    <div class="form-field">
+      <label for="estudianteId">Estudiante</label>
+      <select id="estudianteId" formControlName="estudianteId">
+        <option [ngValue]="null">-- Selecciona un estudiante --</option>
+        @for(est of estudiantes(); track est.id) {
+          <option [ngValue]="est.id">{{ est.nombres }} {{ est.apellidos }}</option>
+        }
+      </select>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn primary">
         <span class="material-symbols-rounded">save</span>
@@ -24,6 +34,7 @@
       <tr>
         <th>ID</th>
         <th>Fecha</th>
+        <th>Estudiante</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -32,6 +43,9 @@
         <tr>
           <td>{{ matricula.id }}</td>
           <td>{{ matricula.fecha }}</td>
+          <td>
+            {{ getEstudianteNombre(matricula.estudiante.id) }}
+          </td>
           <td>
             <button class="btn icon" (click)="edit(matricula)">
               <span class="material-symbols-rounded">edit</span>
@@ -44,4 +58,3 @@
       }
     </tbody>
   </table>
-</section>
