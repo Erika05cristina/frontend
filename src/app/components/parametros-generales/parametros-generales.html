@@ -1,0 +1,54 @@
+<section class="container">
+  <h2>Parámetros Generales</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Ej: Tasa de interés" />
+    </div>
+
+    <div class="form-field">
+      <label for="valor">Valor</label>
+      <input id="valor" type="text" formControlName="valor" placeholder="Ej: 5%" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Valor</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(parametro of parametros(); track parametro.id) {
+        <tr>
+          <td>{{ parametro.id }}</td>
+          <td>{{ parametro.nombre }}</td>
+          <td>{{ parametro.valor }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(parametro)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(parametro.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
