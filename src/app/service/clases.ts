@@ -25,7 +25,8 @@ export type Clase = {
   };
   docente: {
     id: number;
-    nombre?: string;
+    nombres?: string;
+    apellidos?: string;
   } | null;
   espacioFisico: {
     id: number;

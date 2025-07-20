@@ -2,11 +2,13 @@
   <h2>Gestión de Clases</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <!-- Campo para el aula -->
     <div class="form-field">
       <label for="aula">Aula</label>
       <input id="aula" type="text" formControlName="aula" placeholder="Aula" />
     </div>
 
+    <!-- Campo para la asignatura -->
     <div class="form-field">
       <label for="asignaturaId">Asignatura</label>
       <select id="asignaturaId" formControlName="asignaturaId">
@@ -17,6 +19,40 @@
       </select>
     </div>
 
+    <!-- Campo para el grupo -->
+    <div class="form-field">
+      <label for="grupoId">Grupo</label>
+      <select id="grupoId" formControlName="grupoId">
+        <option [ngValue]="null" disabled>Seleccione un grupo</option>
+        <option *ngFor="let grupo of grupos()" [value]="grupo.id">
+          {{ grupo.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Campo para el docente -->
+    <div class="form-field">
+      <label for="docenteId">Docente</label>
+      <select id="docenteId" formControlName="docenteId">
+        <option [ngValue]="null" disabled>Seleccione un docente</option>
+        <option *ngFor="let docente of docentes()" [value]="docente.id">
+          {{ docente.nombres }} {{ docente.apellidos }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Campo para el espacio físico -->
+    <div class="form-field">
+      <label for="espacioFisicoId">Espacio Físico</label>
+      <select id="espacioFisicoId" formControlName="espacioFisicoId">
+        <option [ngValue]="null" disabled>Seleccione un espacio físico</option>
+        <option *ngFor="let espacio of espaciosFisicos()" [value]="espacio.id">
+          {{ espacio.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botones de acción -->
     <div class="form-actions">
       <button type="submit" class="btn primary">
         <span class="material-symbols-rounded">save</span>
@@ -29,31 +65,36 @@
     </div>
   </form>
 
+  <!-- Tabla de clases -->
   <table class="styled-table">
     <thead>
       <tr>
         <th>ID</th>
         <th>Aula</th>
         <th>Asignatura</th>
+        <th>Grupo</th>
+        <th>Docente</th>
+        <th>Espacio Físico</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      @for(clase of clases(); track clase.id) {
-        <tr>
-          <td>{{ clase.id }}</td>
-          <td>{{ clase.aula }}</td>
-          <td>{{ clase.asignatura.nombre }}</td>
-          <td>
-            <button class="btn icon" (click)="edit(clase)">
-              <span class="material-symbols-rounded">edit</span>
-            </button>
-            <button class="btn icon danger" (click)="delete(clase.id)">
-              <span class="material-symbols-rounded">delete</span>
-            </button>
-          </td>
-        </tr>
-      }
+      <tr *ngFor="let clase of clases()">
+        <td>{{ clase.id }}</td>
+        <td>{{ clase.aula }}</td>
+        <td>{{ clase.asignatura.nombre }}</td>
+        <td>{{ clase.grupo?.nombre }}</td>
+        <td>{{ clase.docente?.nombres }} {{ clase.docente?.apellidos }}</td>
+        <td>{{ clase.espacioFisico?.nombre }}</td>
+        <td>
+          <button class="btn icon" (click)="edit(clase)">
+            <span class="material-symbols-rounded">edit</span>
+          </button>
+          <button class="btn icon danger" (click)="delete(clase.id)">
+            <span class="material-symbols-rounded">delete</span>
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </section>
