@@ -44,6 +44,20 @@
         outline: none;
       }
     }
+
+    select {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      background-color: white;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+    }
   }
 
   .form-actions {
