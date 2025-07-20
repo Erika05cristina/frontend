@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 export type Clase = {
   id: number;
   aula: string;
+  asignatura: {
+    id: number;
+    nombre?: string;
+  };
 };
 
 @Injectable({

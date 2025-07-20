@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Clases as ClasesService, Clase } from '../../service/clases';
+import { Asignaturas, Asignatura } from '../../service/asignatura';
 
 @Component({
   selector: 'app-clases',
@@ -14,34 +15,52 @@ import { Clases as ClasesService, Clase } from '../../service/clases';
 export class Clases {
   private fb = inject(FormBuilder);
   private servicio = inject(ClasesService);
+  private asignaturaService = inject(Asignaturas);
 
   clases = signal<Clase[]>([]);
+  asignaturas = signal<Asignatura[]>([]);
   editing = signal<Clase | null>(null);
 
-  form = this.fb.group({
-    aula: ['', Validators.required],
+  form = this.fb.group<{
+    aula: FormControl<string | null>;
+    asignaturaId: FormControl<number | null>;
+  }>({
+    aula: this.fb.control('', Validators.required),
+    asignaturaId: this.fb.control<number | null>(null, Validators.required)
   });
 
   constructor() {
     this.fetchClases();
+    this.fetchAsignaturas();
   }
 
   fetchClases() {
     this.servicio.getAll().subscribe(data => this.clases.set(data));
   }
 
+  fetchAsignaturas() {
+    this.asignaturaService.getAll().subscribe(data => this.asignaturas.set(data));
+  }
+
   submit() {
     if (this.form.invalid) return;
-    const formValue = this.form.value as Omit<Clase, 'id'>;
+
+    const aula = this.form.value.aula ?? '';
+    const asignaturaId = this.form.value.asignaturaId!;
+
+    const payload = {
+      aula,
+      asignatura: { id: asignaturaId }
+    };  
 
     if (this.editing()) {
       const id = this.editing()!.id;
-      this.servicio.update(id, formValue).subscribe(() => {
+      this.servicio.update(id, payload).subscribe(() => {
         this.fetchClases();
         this.cancel();
       });
     } else {
-      this.servicio.create(formValue).subscribe(() => {
+      this.servicio.create(payload).subscribe(() => {
         this.fetchClases();
         this.form.reset();
       });
@@ -50,7 +69,10 @@ export class Clases {
 
   edit(clase: Clase) {
     this.editing.set(clase);
-    this.form.patchValue(clase);
+    this.form.patchValue({
+      aula: clase.aula,
+      asignaturaId: clase.asignatura?.id ?? null
+    });
   }
 
   delete(id: number) {

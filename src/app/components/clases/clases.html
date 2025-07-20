@@ -7,6 +7,16 @@
       <input id="aula" type="text" formControlName="aula" placeholder="Aula" />
     </div>
 
+    <div class="form-field">
+      <label for="asignaturaId">Asignatura</label>
+      <select id="asignaturaId" formControlName="asignaturaId">
+        <option [ngValue]="null" disabled>Seleccione una asignatura</option>
+        <option *ngFor="let asignatura of asignaturas()" [value]="asignatura.id">
+          {{ asignatura.nombre }}
+        </option>
+      </select>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn primary">
         <span class="material-symbols-rounded">save</span>
@@ -24,6 +34,7 @@
       <tr>
         <th>ID</th>
         <th>Aula</th>
+        <th>Asignatura</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -32,6 +43,7 @@
         <tr>
           <td>{{ clase.id }}</td>
           <td>{{ clase.aula }}</td>
+          <td>{{ clase.asignatura.nombre }}</td>
           <td>
             <button class="btn icon" (click)="edit(clase)">
               <span class="material-symbols-rounded">edit</span>
