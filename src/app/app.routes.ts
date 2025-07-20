@@ -5,9 +5,11 @@ import { Grupos } from './components/grupos/grupos';
 import { Horarios } from './components/horarios/horarios';
 import { Matriculas } from './components/matriculas/matriculas';
 import { ParametrosGenerales } from './components/parametros-generales/parametros-generales';
+import { Asignaturas } from './components/asignaturas/asignaturas';
 
 export const routes: Routes = [
   { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
+  { path: 'asignaturas', component: Asignaturas },
   { path: 'espacios-fisicos', component: EspaciosFisicos },
   { path: 'estudiantes', component: Estudiantes },
   { path: 'grupos', component: Grupos },

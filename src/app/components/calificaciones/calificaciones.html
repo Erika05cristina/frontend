@@ -1,0 +1,61 @@
+<section class="container">
+  <h2>Gestión de Calificaciones</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nota">Nota</label>
+      <input id="nota" type="number" step="0.1" formControlName="nota" placeholder="Nota (0-10)" />
+    </div>
+
+    <div class="form-field">
+      <label for="comentario">Comentario</label>
+      <input id="comentario" type="text" formControlName="comentario" placeholder="Comentario" />
+    </div>
+
+    <div class="form-field">
+      <label for="fechaRegistro">Fecha de registro</label>
+      <input id="fechaRegistro" type="date" formControlName="fechaRegistro" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nota</th>
+        <th>Comentario</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(calificacion of calificaciones(); track calificacion.id) {
+        <tr>
+          <td>{{ calificacion.id }}</td>
+          <td>{{ calificacion.nota }}</td>
+          <td>{{ calificacion.comentario }}</td>
+          <td>{{ calificacion.fechaRegistro }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(calificacion)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(calificacion.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
