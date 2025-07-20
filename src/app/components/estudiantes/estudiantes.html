@@ -1,0 +1,82 @@
+<section class="container">
+  <h2>Gestión de Estudiantes</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombres">Nombres</label>
+      <input id="nombres" type="text" formControlName="nombres" placeholder="Nombres" />
+    </div>
+
+    <div class="form-field">
+      <label for="apellidos">Apellidos</label>
+      <input id="apellidos" type="text" formControlName="apellidos" placeholder="Apellidos" />
+    </div>
+
+    <div class="form-field">
+      <label for="cedula">Cédula</label>
+      <input id="cedula" type="text" formControlName="cedula" placeholder="Cédula" />
+    </div>
+
+    <div class="form-field">
+      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+      <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" />
+    </div>
+
+    <div class="form-field">
+      <label for="direccion">Dirección</label>
+      <input id="direccion" type="text" formControlName="direccion" placeholder="Dirección" />
+    </div>
+
+    <div class="form-field">
+      <label for="contactoEmergencia">Contacto de Emergencia</label>
+      <input id="contactoEmergencia" type="text" formControlName="contactoEmergencia" placeholder="Contacto de Emergencia" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Cédula</th>
+        <th>Nacimiento</th>
+        <th>Dirección</th>
+        <th>Emergencia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(estudiante of estudiantes(); track estudiante.id) {
+        <tr>
+          <td>{{ estudiante.id }}</td>
+          <td>{{ estudiante.nombres }}</td>
+          <td>{{ estudiante.apellidos }}</td>
+          <td>{{ estudiante.cedula }}</td>
+          <td>{{ estudiante.fechaNacimiento }}</td>
+          <td>{{ estudiante.direccion }}</td>
+          <td>{{ estudiante.contactoEmergencia }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(estudiante)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(estudiante.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
