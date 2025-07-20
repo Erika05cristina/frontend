@@ -17,6 +17,36 @@
       <input id="fechaRegistro" type="date" formControlName="fechaRegistro" />
     </div>
 
+    <div class="form-field">
+      <label for="estudianteId">Estudiante</label>
+      <select id="estudianteId" formControlName="estudianteId">
+        <option [ngValue]="null" disabled selected>Seleccione un estudiante</option>
+        <option *ngFor="let estudiante of estudiantes()" [value]="estudiante.id">
+          {{ estudiante.nombres }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="asignaturaId">Asignatura</label>
+      <select id="asignaturaId" formControlName="asignaturaId">
+        <option [ngValue]="null" disabled selected>Seleccione una asignatura</option>
+        <option *ngFor="let asignatura of asignaturas()" [value]="asignatura.id">
+          {{ asignatura.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="claseId">Clase</label>
+      <select id="claseId" formControlName="claseId">
+        <option [ngValue]="null" disabled selected>Seleccione una clase</option>
+        <option *ngFor="let clase of clases()" [value]="clase.id">
+          {{ clase.aula }}
+        </option>
+      </select>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn primary">
         <span class="material-symbols-rounded">save</span>
@@ -36,6 +66,9 @@
         <th>Nota</th>
         <th>Comentario</th>
         <th>Fecha</th>
+        <th>Estudiante</th>
+        <th>Asignatura</th>
+        <th>Clase</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -46,6 +79,9 @@
           <td>{{ calificacion.nota }}</td>
           <td>{{ calificacion.comentario }}</td>
           <td>{{ calificacion.fechaRegistro }}</td>
+          <td>{{ calificacion.estudiante.nombres }}</td>
+          <td>{{ calificacion.asignatura.nombre }}</td>
+          <td>{{ calificacion.clase.aula }}</td>
           <td>
             <button class="btn icon" (click)="edit(calificacion)">
               <span class="material-symbols-rounded">edit</span>

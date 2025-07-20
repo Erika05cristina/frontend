@@ -7,6 +7,9 @@ export type Calificacion = {
   nota: number;
   comentario: string;
   fechaRegistro: string;
+  estudiante: { id: number; nombres?: string };
+  asignatura: { id: number; nombre?: string };
+  clase: { id: number; aula?: string };
 };
 
 @Injectable({
