@@ -1,19 +1,25 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Estudiante } from './estudiantes';
 
 export type ComprobanteVenta = {
   id: number;
   numero: string;
   fechaEmision: string;
   total: number;
+  estudiante: {
+    id: number;
+    nombres?: string;
+    apellidos?: string;
+  };
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComprobantesVenta {
-  private readonly http = inject(HttpClient);
+  private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/comprobantes-venta';
 
   getAll(): Observable<ComprobanteVenta[]> {

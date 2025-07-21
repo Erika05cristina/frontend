@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ComprobantesVenta as ComprobantesVentaService, ComprobanteVenta } from '../../service/comprobantes-venta';
+import { Estudiantes, Estudiante } from '../../service/estudiantes';
 
 @Component({
   selector: 'app-comprobantes-venta',
@@ -12,20 +13,23 @@ import { ComprobantesVenta as ComprobantesVentaService, ComprobanteVenta } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComprobantesVenta {
-  private fb = inject(FormBuilder);
   private servicio = inject(ComprobantesVentaService);
+  private estudiantesService = inject(Estudiantes);
+  estudiantes = signal<Estudiante[]>([]);
 
   comprobantes = signal<ComprobanteVenta[]>([]);
   editing = signal<ComprobanteVenta | null>(null);
 
-  form = this.fb.group({
-    numero: ['', Validators.required],
-    fechaEmision: ['', Validators.required],
-    total: [0, [Validators.required, Validators.min(0)]],
+  form = new FormGroup({
+    numero: new FormControl<string | null>(null, Validators.required),
+    fechaEmision: new FormControl<string | null>(null, Validators.required),
+    total: new FormControl<number | null>(null, Validators.required),
+    estudianteId: new FormControl<number | null>(null, Validators.required),
   });
 
   constructor() {
     this.fetchComprobantes();
+    this.estudiantesService.getAll().subscribe(data => this.estudiantes.set(data));
   }
 
   fetchComprobantes() {
@@ -34,16 +38,26 @@ export class ComprobantesVenta {
 
   submit() {
     if (this.form.invalid) return;
-    const formValue = this.form.value as Omit<ComprobanteVenta, 'id'>;
+
+    const { numero, fechaEmision, total, estudianteId } = this.form.value;
+
+    if (!numero || !fechaEmision || total == null || estudianteId == null) return;
+
+    const payload = {
+      numero,
+      fechaEmision,
+      total,
+      estudiante: { id: estudianteId }
+    };
 
     if (this.editing()) {
       const id = this.editing()!.id;
-      this.servicio.update(id, formValue).subscribe(() => {
+      this.servicio.update(id, payload).subscribe(() => {
         this.fetchComprobantes();
         this.cancel();
       });
     } else {
-      this.servicio.create(formValue).subscribe(() => {
+      this.servicio.create(payload).subscribe(() => {
         this.fetchComprobantes();
         this.form.reset();
       });
@@ -52,7 +66,12 @@ export class ComprobantesVenta {
 
   edit(comprobante: ComprobanteVenta) {
     this.editing.set(comprobante);
-    this.form.patchValue(comprobante);
+    this.form.patchValue({
+      numero: comprobante.numero,
+      fechaEmision: comprobante.fechaEmision,
+      total: comprobante.total,
+      estudianteId: comprobante.estudiante.id
+    });
   }
 
   delete(id: number) {

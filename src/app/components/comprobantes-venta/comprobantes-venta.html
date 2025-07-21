@@ -4,17 +4,27 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <div class="form-field">
       <label for="numero">Número</label>
-      <input id="numero" type="text" formControlName="numero" placeholder="Número del comprobante" />
+      <input id="numero" type="text" formControlName="numero" />
     </div>
 
     <div class="form-field">
-      <label for="fechaEmision">Fecha de emisión</label>
+      <label for="fechaEmision">Fecha de Emisión</label>
       <input id="fechaEmision" type="date" formControlName="fechaEmision" />
     </div>
 
     <div class="form-field">
       <label for="total">Total</label>
-      <input id="total" type="number" step="0.01" formControlName="total" placeholder="Total" />
+      <input id="total" type="number" formControlName="total" />
+    </div>
+
+    <div class="form-field">
+      <label for="estudianteId">Estudiante</label>
+      <select id="estudianteId" formControlName="estudianteId">
+        <option [ngValue]="null">-- Selecciona un estudiante --</option>
+        @for(est of estudiantes(); track est.id) {
+          <option [ngValue]="est.id">{{ est.nombres }} {{ est.apellidos }}</option>
+        }
+      </select>
     </div>
 
     <div class="form-actions">
@@ -22,7 +32,7 @@
         <span class="material-symbols-rounded">save</span>
         {{ editing() ? 'Actualizar' : 'Crear' }}
       </button>
-      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
         <span class="material-symbols-rounded">cancel</span>
         Cancelar
       </button>
@@ -36,21 +46,23 @@
         <th>Número</th>
         <th>Fecha</th>
         <th>Total</th>
+        <th>Estudiante</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      @for(comprobante of comprobantes(); track comprobante.id) {
+      @for(comp of comprobantes(); track comp.id) {
         <tr>
-          <td>{{ comprobante.id }}</td>
-          <td>{{ comprobante.numero }}</td>
-          <td>{{ comprobante.fechaEmision }}</td>
-          <td>{{ comprobante.total }}</td>
+          <td>{{ comp.id }}</td>
+          <td>{{ comp.numero }}</td>
+          <td>{{ comp.fechaEmision }}</td>
+          <td>{{ comp.total }}</td>
+          <td>{{ comp.estudiante.nombres }} {{ comp.estudiante.apellidos }}</td>
           <td>
-            <button class="btn icon" (click)="edit(comprobante)">
+            <button class="btn icon" (click)="edit(comp)">
               <span class="material-symbols-rounded">edit</span>
             </button>
-            <button class="btn icon danger" (click)="delete(comprobante.id)">
+            <button class="btn icon danger" (click)="delete(comp.id)">
               <span class="material-symbols-rounded">delete</span>
             </button>
           </td>

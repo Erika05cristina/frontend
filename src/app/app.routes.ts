@@ -3,7 +3,7 @@ import { Asignaturas } from './components/asignaturas/asignaturas';
 import { Calificaciones } from './components/calificaciones/calificaciones';
 import { Clases } from './components/clases/clases';
 import { CuentasContables } from './components/cuentas-contables/cuentas-contables';
-import { ComprobantesVenta } from './service/comprobantes-venta';
+import { ComprobantesVenta } from './components/comprobantes-venta/comprobantes-venta';
 import { Docentes } from './components/docentes/docentes';
 import { DiariosCaja } from './components/diarios-caja/diarios-caja';
 import { EspaciosFisicos } from './components/espacios-fisicos/espacios-fisicos';
