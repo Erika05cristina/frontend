@@ -18,20 +18,20 @@ export class TransaccionFinanciera {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/transaccion-financiera';
 
-  getAll(): Observable<TransaccionFinanciera[]> {
-    return this.http.get<TransaccionFinanciera[]>(this.baseUrl);
+  getAll(): Observable<Transaccion[]> {
+    return this.http.get<Transaccion[]>(this.baseUrl);
   }
 
-  getById(id: number): Observable<TransaccionFinanciera> {
-    return this.http.get<TransaccionFinanciera>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<Transaccion> {
+    return this.http.get<Transaccion>(`${this.baseUrl}/${id}`);
   }
 
-  create(data: Omit<TransaccionFinanciera, 'id'>): Observable<TransaccionFinanciera> {
-    return this.http.post<TransaccionFinanciera>(this.baseUrl, data);
+  create(data: Omit<Transaccion, 'id'>): Observable<Transaccion> {
+    return this.http.post<Transaccion>(this.baseUrl, data);
   }
 
-  update(data: TransaccionFinanciera): Observable<TransaccionFinanciera> {
-    return this.http.put<TransaccionFinanciera>(this.baseUrl, data);
+  update(data: Transaccion): Observable<Transaccion> {
+    return this.http.put<Transaccion>(this.baseUrl, data);
   }
 
   delete(id: number): Observable<void> {

@@ -17,20 +17,20 @@ export class PersonalAdministrativo {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/personal-administrativo';
   
-  getAll(): Observable<PersonalAdministrativo[]> {
-    return this.http.get<PersonalAdministrativo[]>(this.baseUrl);
+  getAll(): Observable<Personal[]> {
+    return this.http.get<Personal[]>(this.baseUrl);
   }
 
-  getById(id: number): Observable<PersonalAdministrativo> {
-    return this.http.get<PersonalAdministrativo>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<Personal> {
+    return this.http.get<Personal>(`${this.baseUrl}/${id}`);
   }
 
-  create(data: Omit<PersonalAdministrativo, 'id'>): Observable<PersonalAdministrativo> {
-    return this.http.post<PersonalAdministrativo>(this.baseUrl, data);
+  create(data: Omit<Personal, 'id'>): Observable<Personal> {
+    return this.http.post<Personal>(this.baseUrl, data);
   }
 
-  update(data: PersonalAdministrativo): Observable<PersonalAdministrativo> {
-    return this.http.put<PersonalAdministrativo>(this.baseUrl, data);
+  update(data: Personal): Observable<Personal> {
+    return this.http.put<Personal>(this.baseUrl, data);
   }
 
   delete(id: number): Observable<void> {
