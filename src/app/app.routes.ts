@@ -17,6 +17,7 @@ import { PeriodoLectivoC } from './components/periodo-lectivo-c/periodo-lectivo-
 import { PersonalAdministrativoC } from './components/personal-administrativo-c/personal-administrativo-c';
 import { PlanCuentaC } from './components/plan-cuenta-c/plan-cuenta-c';
 import { RubroC } from './components/rubro-c/rubro-c';
+import { TransaccionFinancieraC } from './components/transaccion-financiera-c/transaccion-financiera-c';
 
 export const routes: Routes = [
   { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
@@ -37,5 +38,6 @@ export const routes: Routes = [
   { path: 'periodo-lectivo', component: PeriodoLectivoC},
   { path: 'personal-administrativo', component: PersonalAdministrativoC },
   { path: 'plan-cuenta', component: PlanCuentaC },
-  {path: 'rubro', component: RubroC }
+  { path: 'rubro', component: RubroC },
+  { path: 'transaccion-financiera', component: TransaccionFinancieraC }
 ];

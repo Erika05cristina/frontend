@@ -1,0 +1,68 @@
+<section class="container">
+  <h2>Gestión de Transacciones Financieras</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="tipo">Tipo</label>
+      <input id="tipo" type="text" formControlName="tipo" />
+    </div>
+
+    <div class="form-field">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" formControlName="descripcion" />
+    </div>
+
+    <div class="form-field">
+      <label for="monto">Monto</label>
+      <input id="monto" type="number" formControlName="monto" />
+    </div>
+
+    <div class="form-field">
+      <label for="fecha">Fecha</label>
+      <input id="fecha" type="date" formControlName="fecha" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Descripción</th>
+        <th>Monto</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(transaccion of transacciones(); track transaccion.id) {
+        <tr>
+          <td>{{ transaccion.id }}</td>
+          <td>{{ transaccion.tipo }}</td>
+          <td>{{ transaccion.descripcion }}</td>
+          <td>{{ transaccion.monto | number: '1.2-2' }}</td>
+          <td>{{ transaccion.fecha }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(transaccion)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(transaccion.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
