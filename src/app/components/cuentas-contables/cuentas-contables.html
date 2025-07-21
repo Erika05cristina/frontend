@@ -4,12 +4,22 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <div class="form-field">
       <label for="codigo">Código</label>
-      <input id="codigo" type="text" formControlName="codigo" placeholder="Código de la cuenta" />
+      <input id="codigo" type="text" formControlName="codigo" />
     </div>
 
     <div class="form-field">
       <label for="nombre">Nombre</label>
-      <input id="nombre" type="text" formControlName="nombre" placeholder="Nombre de la cuenta" />
+      <input id="nombre" type="text" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label for="planCuentaId">Plan de Cuenta</label>
+      <select id="planCuentaId" formControlName="planCuentaId">
+        <option [ngValue]="null">-- Selecciona un plan --</option>
+        @for(plan of planes(); track plan.id) {
+          <option [ngValue]="plan.id">{{ plan.nombre }}</option>
+        }
+      </select>
     </div>
 
     <div class="form-actions">
@@ -17,7 +27,7 @@
         <span class="material-symbols-rounded">save</span>
         {{ editing() ? 'Actualizar' : 'Crear' }}
       </button>
-      <button type="button" (click)="cancel()" class="btn outline" *ngIf="editing()">
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
         <span class="material-symbols-rounded">cancel</span>
         Cancelar
       </button>
@@ -30,6 +40,7 @@
         <th>ID</th>
         <th>Código</th>
         <th>Nombre</th>
+        <th>Plan de Cuenta</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -39,6 +50,7 @@
           <td>{{ cuenta.id }}</td>
           <td>{{ cuenta.codigo }}</td>
           <td>{{ cuenta.nombre }}</td>
+          <td>{{ cuenta.planCuenta?.nombre ?? '—' }}</td>
           <td>
             <button class="btn icon" (click)="edit(cuenta)">
               <span class="material-symbols-rounded">edit</span>

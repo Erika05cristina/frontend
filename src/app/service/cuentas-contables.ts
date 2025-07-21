@@ -6,12 +6,17 @@ export type CuentaContable = {
   id: number;
   codigo: string;
   nombre: string;
+  planCuenta?: {
+    id: number;
+    nombre?: string;
+    descripcion?: string;
+  };
 };
 
 @Injectable({
   providedIn: 'root'
 })
-export class CuentasContables {
+export class CuentaContableService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/cuentas-contables';
 

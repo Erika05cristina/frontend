@@ -6,30 +6,30 @@ export type Plan = {
   id: number;
   nombre: string;
   descripcion: string;
-}
+};
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlanCuenta {
+export class PlanCuentaService {  // <<< CAMBIA NOMBRE DEL SERVICIO
 
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/plan-cuenta';
 
-  getAll(): Observable<PlanCuenta[]> {
-    return this.http.get<PlanCuenta[]>(this.baseUrl);
+  getAll(): Observable<Plan[]> {   // <<< USA `Plan` aquí
+    return this.http.get<Plan[]>(this.baseUrl);
   }
 
-  getById(id: number): Observable<PlanCuenta> {
-    return this.http.get<PlanCuenta>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<Plan> {
+    return this.http.get<Plan>(`${this.baseUrl}/${id}`);
   }
 
-  create(data: Omit<PlanCuenta, 'id'>): Observable<PlanCuenta> {
-    return this.http.post<PlanCuenta>(this.baseUrl, data);
+  create(data: Omit<Plan, 'id'>): Observable<Plan> {
+    return this.http.post<Plan>(this.baseUrl, data);
   }
 
-  update(data: PlanCuenta): Observable<PlanCuenta> {
-    return this.http.put<PlanCuenta>(this.baseUrl, data);
+  update(data: Plan): Observable<Plan> {
+    return this.http.put<Plan>(this.baseUrl, data);
   }
 
   delete(id: number): Observable<void> {

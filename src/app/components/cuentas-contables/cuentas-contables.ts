@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CuentasContables as CuentasContablesService, CuentaContable } from '../../service/cuentas-contables';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { PlanCuentaService, Plan } from '../../service/plan-cuenta';
+import { CuentaContableService, CuentaContable } from '../../service/cuentas-contables';
 
 @Component({
   selector: 'app-cuentas-contables',
@@ -13,18 +14,22 @@ import { CuentasContables as CuentasContablesService, CuentaContable } from '../
 })
 export class CuentasContables {
   private fb = inject(FormBuilder);
-  private servicio = inject(CuentasContablesService);
+  private servicio = inject(CuentaContableService);
+  private planesService = inject(PlanCuentaService);
 
   cuentas = signal<CuentaContable[]>([]);
+  planes = signal<Plan[]>([]);
   editing = signal<CuentaContable | null>(null);
 
   form = this.fb.group({
     codigo: ['', Validators.required],
-    nombre: ['', Validators.required]
+    nombre: ['', Validators.required],
+    planCuentaId: this.fb.control<number | null>(null, Validators.required)  // 🎯 Corregido aquí
   });
 
   constructor() {
     this.fetchCuentas();
+    this.planesService.getAll().subscribe(data => this.planes.set(data));
   }
 
   fetchCuentas() {
@@ -33,16 +38,25 @@ export class CuentasContables {
 
   submit() {
     if (this.form.invalid) return;
-    const formValue = this.form.value as Omit<CuentaContable, 'id'>;
+
+    const { codigo, nombre, planCuentaId } = this.form.value;
+
+    if (!codigo || !nombre || !planCuentaId) return;
+
+    const payload = {
+      codigo: codigo as string,
+      nombre: nombre as string,
+      planCuenta: { id: planCuentaId as number }
+    };
 
     if (this.editing()) {
       const id = this.editing()!.id;
-      this.servicio.update(id, formValue).subscribe(() => {
+      this.servicio.update(id, payload).subscribe(() => {
         this.fetchCuentas();
         this.cancel();
       });
     } else {
-      this.servicio.create(formValue).subscribe(() => {
+      this.servicio.create(payload).subscribe(() => {
         this.fetchCuentas();
         this.form.reset();
       });
@@ -51,7 +65,11 @@ export class CuentasContables {
 
   edit(cuenta: CuentaContable) {
     this.editing.set(cuenta);
-    this.form.patchValue(cuenta);
+    this.form.patchValue({
+      codigo: cuenta.codigo,
+      nombre: cuenta.nombre,
+      planCuentaId: cuenta.planCuenta?.id ?? null
+    });
   }
 
   delete(id: number) {
@@ -61,5 +79,11 @@ export class CuentasContables {
   cancel() {
     this.editing.set(null);
     this.form.reset();
+  }
+
+  getPlanNombre(id: number | undefined | null): string {
+    if (!id) return '—';
+    const plan = this.planes().find(p => p.id === id);
+    return plan ? plan.nombre : 'Desconocido';
   }
 }
