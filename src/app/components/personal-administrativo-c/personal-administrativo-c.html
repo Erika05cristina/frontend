@@ -1,0 +1,61 @@
+<section class="container">
+  <h2>Gestión de Personal Administrativo</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombres">Nombres</label>
+      <input id="nombres" type="text" formControlName="nombres" />
+    </div>
+
+    <div class="form-field">
+      <label for="apellidos">Apellidos</label>
+      <input id="apellidos" type="text" formControlName="apellidos" />
+    </div>
+
+    <div class="form-field">
+      <label for="cargo">Cargo</label>
+      <input id="cargo" type="text" formControlName="cargo" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Cargo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(persona of personal(); track persona.id) {
+        <tr>
+          <td>{{ persona.id }}</td>
+          <td>{{ persona.nombres }}</td>
+          <td>{{ persona.apellidos }}</td>
+          <td>{{ persona.cargo }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(persona)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(persona.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

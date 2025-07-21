@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Periodo, PeriodoLectivo } from '../../service/periodo-lectivo';
 
@@ -8,7 +8,8 @@ import { Periodo, PeriodoLectivo } from '../../service/periodo-lectivo';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './periodo-lectivo-c.html',
-  styleUrl: './periodo-lectivo-c.scss'
+  styleUrl: './periodo-lectivo-c.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PeriodoLectivoC {
 

@@ -14,6 +14,7 @@ import { Matriculas } from './components/matriculas/matriculas';
 import { ParametrosGenerales } from './components/parametros-generales/parametros-generales';
 import { PerfilAccesoC } from './components/perfil-acceso-c/perfil-acceso-c';
 import { PeriodoLectivoC } from './components/periodo-lectivo-c/periodo-lectivo-c';
+import { PersonalAdministrativoC } from './components/personal-administrativo-c/personal-administrativo-c';
 
 export const routes: Routes = [
   { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
@@ -31,5 +32,6 @@ export const routes: Routes = [
   { path: 'matriculas', component: Matriculas },
   { path: 'parametros-generales', component: ParametrosGenerales },
   { path: 'perfil-acceso', component: PerfilAccesoC },
-  { path: 'periodo-lectivo', component: PeriodoLectivoC}
+  { path: 'periodo-lectivo', component: PeriodoLectivoC},
+  { path: 'personal-administrativo', component: PersonalAdministrativoC },
 ];
