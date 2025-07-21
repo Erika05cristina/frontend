@@ -1,0 +1,61 @@
+<section class="container">
+  <h2>Gestión de Periodos Lectivos</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label for="fechaInicio">Fecha de Inicio</label>
+      <input id="fechaInicio" type="date" formControlName="fechaInicio" />
+    </div>
+
+    <div class="form-field">
+      <label for="fechaFin">Fecha de Fin</label>
+      <input id="fechaFin" type="date" formControlName="fechaFin" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(periodo of periodos(); track periodo.id) {
+        <tr>
+          <td>{{ periodo.id }}</td>
+          <td>{{ periodo.nombre }}</td>
+          <td>{{ periodo.fechaInicio | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ periodo.fechaFin | date: 'yyyy-MM-dd' }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(periodo)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(periodo.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
