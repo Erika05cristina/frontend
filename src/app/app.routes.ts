@@ -12,6 +12,7 @@ import { Grupos } from './components/grupos/grupos';
 import { Horarios } from './components/horarios/horarios';
 import { Matriculas } from './components/matriculas/matriculas';
 import { ParametrosGenerales } from './components/parametros-generales/parametros-generales';
+import { PerfilAccesoC } from './components/perfil-acceso-c/perfil-acceso-c';
 
 export const routes: Routes = [
   { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
@@ -28,4 +29,5 @@ export const routes: Routes = [
   { path: 'horarios', component: Horarios },
   { path: 'matriculas', component: Matriculas },
   { path: 'parametros-generales', component: ParametrosGenerales },
+  { path: 'perfil-acceso', component: PerfilAccesoC },
 ];

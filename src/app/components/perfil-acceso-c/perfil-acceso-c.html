@@ -1,0 +1,54 @@
+<section class="container">
+  <h2>Gestión de Perfiles de Acceso</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-field">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" formControlName="descripcion" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">
+        <span class="material-symbols-rounded">save</span>
+        {{ editing() ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="btn outline" *ngIf="editing()" (click)="cancel()">
+        <span class="material-symbols-rounded">cancel</span>
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(perfil of perfiles(); track perfil.id) {
+        <tr>
+          <td>{{ perfil.id }}</td>
+          <td>{{ perfil.nombre }}</td>
+          <td>{{ perfil.descripcion }}</td>
+          <td>
+            <button class="btn icon" (click)="edit(perfil)">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="btn icon danger" (click)="delete(perfil.id)">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
