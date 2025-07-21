@@ -11,25 +11,24 @@ export type RubroClass = {
 @Injectable({
   providedIn: 'root'
 })
-export class Rubro {
-  
+export class RubroService {   
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/rubro';
 
-  getAll(): Observable<Rubro[]> {
-    return this.http.get<Rubro[]>(this.baseUrl);
+  getAll(): Observable<RubroClass[]> {  
+    return this.http.get<RubroClass[]>(this.baseUrl);
   }
 
-  getById(id: number): Observable<Rubro> {
-    return this.http.get<Rubro>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<RubroClass> {
+    return this.http.get<RubroClass>(`${this.baseUrl}/${id}`);
   }
 
-  create(data: Omit<Rubro, 'id'>): Observable<Rubro> {
-    return this.http.post<Rubro>(this.baseUrl, data);
+  create(data: Omit<RubroClass, 'id'>): Observable<RubroClass> {
+    return this.http.post<RubroClass>(this.baseUrl, data);
   }
 
-  update(data: Rubro): Observable<Rubro> {
-    return this.http.put<Rubro>(this.baseUrl, data);
+  update(data: RubroClass): Observable<RubroClass> {
+    return this.http.put<RubroClass>(this.baseUrl, data);
   }
 
   delete(id: number): Observable<void> {

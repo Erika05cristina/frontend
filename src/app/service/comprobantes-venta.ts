@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Estudiante } from './estudiantes';
+import { RubroClass } from './rubro';
 
 export type ComprobanteVenta = {
   id: number;
@@ -13,6 +13,15 @@ export type ComprobanteVenta = {
     nombres?: string;
     apellidos?: string;
   };
+  rubros: RubroClass[];
+};
+ 
+export type ComprobanteVentaPayload = {
+  numero: string;
+  fechaEmision: string;
+  total: number;
+  estudiante: { id: number };
+  rubros: { id: number }[];
 };
 
 @Injectable({
@@ -30,11 +39,11 @@ export class ComprobantesVenta {
     return this.http.get<ComprobanteVenta>(`${this.baseUrl}/${id}`);
   }
 
-  create(data: Omit<ComprobanteVenta, 'id'>): Observable<ComprobanteVenta> {
+  create(data: ComprobanteVentaPayload): Observable<ComprobanteVenta> {
     return this.http.post<ComprobanteVenta>(this.baseUrl, data);
   }
 
-  update(id: number, data: Omit<ComprobanteVenta, 'id'>): Observable<ComprobanteVenta> {
+  update(id: number, data: ComprobanteVentaPayload): Observable<ComprobanteVenta> {
     return this.http.put<ComprobanteVenta>(`${this.baseUrl}/${id}`, data);
   }
 
