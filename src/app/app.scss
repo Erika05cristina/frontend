@@ -1,0 +1,24 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+app-sidebar {
+  flex-shrink: 0;
+  /* Si tu sidebar es fixed, podrías quitarlo de aquí */
+}
+
+.main-content {
+  margin-left: 270px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+router-outlet {
+  flex: 1;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
