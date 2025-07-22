@@ -5,7 +5,6 @@
 
 app-sidebar {
   flex-shrink: 0;
-  /* Si tu sidebar es fixed, podrías quitarlo de aquí */
 }
 
 .main-content {
@@ -13,6 +12,9 @@ app-sidebar {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;     /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  text-align: center;      /* (opcional) centrar texto */
 }
 
 router-outlet {
