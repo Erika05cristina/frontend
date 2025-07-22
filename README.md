@@ -1,59 +1,75 @@
-# Frontend
+#  Plataforma de Gestión Educativa – Ingeniería de Software
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+Este proyecto permite gestionar una institución educativa con funciones académicas y financieras integradas. Incluye control de estudiantes, matrículas, rubros, comprobantes de venta, transacciones financieras, cuentas contables y planes de cuentas.
 
-## Development server
+---
 
-To start a local development server, run:
+## Tecnologías
 
-```bash
-ng serve
-```
+- **Backend**: Spring Boot 3, JPA (Hibernate), MySQL  
+- **Frontend**: Angular 20 (Signals, Vite, Standalone Components)  
+- **Base de datos**: MySQL  
+- **Dependencias útiles**: Lombok, Swagger OpenAPI, Angular Material, RxJS
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Funcionalidades
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Académico
+- CRUD de estudiantes
+- Gestión de matrículas
+- Relación de rubros con matrícula
 
-```bash
-ng generate component component-name
-```
+### Financiero
+- Gestión de rubros y montos
+- Comprobantes de venta con múltiples rubros asociados
+- Descarga de comprobantes en PDF
+- Gestión de planes de cuentas y cuentas contables
+- Transacciones financieras con cuentas asociadas
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🔗 Relaciones entre entidades
 
-## Building
+| Entidad                | Relaciones                                                                 |
+|------------------------|----------------------------------------------------------------------------|
+| `Estudiante`           | ⇄ `Matricula`, ⇄ `ComprobanteVenta`                                       |
+| `Matricula`            | ⇄ `Rubro`, ⇄ `Estudiante`                                                  |
+| `Rubro`                | ⇄ `Matricula`, ⇄ `ComprobanteVenta`                                       |
+| `ComprobanteVenta`     | ⇄ `Estudiante`, ⇄ `Rubro`                                                  |
+| `CuentaContable`       | ⇄ `PlanCuenta`, ⇄ `TransaccionFinanciera`                                 |
+| `PlanCuenta`           | ⇄ `CuentaContable`                                                         |
+| `TransaccionFinanciera`| ⇄ `CuentaContable`, ⇄ `DiarioCaja`                                        |
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Estructura del Proyecto 
+backend/
+├── controller/
+├── model/
+├── repository/
+├── services/
+└── resources/
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+frontend/
+├── app/
+│   ├── components/
+│   ├── services/
+│   └── routes/
+└── assets/
 
-## Running unit tests
+### Estado Actual del Proyecto
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+[x] Gestión de estudiantes y matrículas
 
-```bash
-ng test
-```
+[x] CRUD de rubros
 
-## Running end-to-end tests
+[x] Gestión de comprobantes de venta y su relación con rubros
 
-For end-to-end (e2e) testing, run:
+[x] Funcionalidad de descarga de comprobantes
 
-```bash
-ng e2e
-```
+[x] CRUD de cuentas contables y planes de cuenta
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+[x] Integración backend–frontend completa
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[x] Validaciones y UI responsiva
