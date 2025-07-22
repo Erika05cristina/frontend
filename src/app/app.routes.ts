@@ -18,9 +18,10 @@ import { PersonalAdministrativoC } from './components/personal-administrativo-c/
 import { PlanCuentaC } from './components/plan-cuenta-c/plan-cuenta-c';
 import { RubroC } from './components/rubro-c/rubro-c';
 import { TransaccionFinancieraC } from './components/transaccion-financiera-c/transaccion-financiera-c';
+import { HomePage } from './components/home-page/home-page';
 
 export const routes: Routes = [
-  { path: '',  redirectTo: 'estudiantes', pathMatch: 'full' },
+  { path: '',  component: HomePage},
   { path: 'asignaturas', component: Asignaturas },
   { path: 'calificaciones', component: Calificaciones },
   { path: 'clases', component: Clases },
