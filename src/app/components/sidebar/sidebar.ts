@@ -16,20 +16,25 @@ export class Sidebar implements AfterViewInit {
   private readonly fullSidebarHeight = 'calc(100vh - 32px)';
   readonly isMenuActive = signal(false);
 
-  readonly primaryNav = [
-    { icon: 'model_training', label: 'Entrenamiento', route: '/upload' },
-    { icon: 'network_intel_node', label: 'Predicción', route: '/predict' },
-    { icon: 'clarify', label: 'Explicación', route: '/explanation' },
-    { icon: 'insert_chart', label: 'Analíticas' },
-    { icon: 'group', label: 'Agente', route: '/agent' },
-    { icon: 'history', label: 'Marcadores' },
-    { icon: 'settings', label: 'Configuraciones' },
-  ];
-
-  readonly secondaryNav = [
-    { icon: 'account_circle', label: 'Perfil' },
-    { icon: 'logout', label: 'Cerrar sesión', route: '/login'},
-  ];
+readonly primaryNav = [
+  { icon: 'menu_book', label: 'Asignaturas', route: '/asignaturas' },
+  { icon: 'leaderboard', label: 'Calificaciones', route: '/calificaciones' },
+  { icon: 'school', label: 'Clases', route: '/clases' },
+  { icon: 'checkbook', label: 'Comprobantes', route: '/comprobantes-venta' },
+  { icon: 'finance_chip', label: 'Cuentas Contables', route: '/cuentas-contables' },
+  { icon: 'receipt', label: 'Diarios', route: '/diarios-caja' },
+  { icon: 'school', label: 'Docentes', route: '/docentes' },
+  { icon: 'location_city', label: 'Espacios Físicos', route: '/espacios-fisicos' },
+  { icon: 'group', label: 'Estudiantes', route: '/estudiantes' },
+  { icon: 'diversity_3', label: 'Grupos', route: '/grupos' },
+  { icon: 'event', label: 'Horarios', route: '/horarios' },
+  { icon: 'how_to_reg', label: 'Matriculas', route: '/matriculas' },
+  { icon: 'tune', label: 'Parámetros Generales', route: '/parametros-generales' },
+  { icon: 'event_note', label: 'Periodo Lectivo', route: '/periodo-lectivo' },
+  { icon: 'account_tree', label: 'Plan de Cuenta', route: '/plan-cuenta' },
+  { icon: 'category', label: 'Rubro', route: '/rubro' },
+  { icon: 'attach_money', label: 'Transacción Financiera', route: '/transaccion-financiera' }
+];
 
   ngAfterViewInit(): void {
     this.sidebarRef.nativeElement.classList.add('collapsed');
@@ -50,6 +55,10 @@ export class Sidebar implements AfterViewInit {
 
   @HostListener('window:resize')
   updateSidebarHeight(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const sidebar = this.sidebarRef.nativeElement;
     const isWideScreen = window.innerWidth >= 1024;
 
@@ -61,6 +70,7 @@ export class Sidebar implements AfterViewInit {
       this.adjustSidebar(this.isMenuActive());
     }
   }
+
 
   private adjustSidebar(active: boolean): void {
     const sidebar = this.sidebarRef.nativeElement;
