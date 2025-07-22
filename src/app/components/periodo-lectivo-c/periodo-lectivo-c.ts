@@ -33,31 +33,31 @@ export class PeriodoLectivoC {
   }
 
   submit() {
-    if (this.form.invalid) return;
+  if (this.form.invalid) return;
 
-    const { nombre, fechaInicio, fechaFin } = this.form.value;
+  const { nombre, fechaInicio, fechaFin } = this.form.value;
 
-    if (!nombre || !fechaInicio || !fechaFin) return;
+  if (!nombre || !fechaInicio || !fechaFin) return;
 
-    const payload: Omit<Periodo, 'id'> = {
-      nombre,
-      fechaInicio: new Date(fechaInicio),
-      fechaFin: new Date(fechaFin),
-    };
+  const payload: Omit<Periodo, 'id'> = {
+    nombre,
+    fechaInicio,  // Enviar como string "2025-08-01"
+    fechaFin,     // Enviar como string "2025-12-31"
+  };
 
-    if (this.editing()) {
-      const id = this.editing()!.id;
-      this.servicio.update({ id, ...payload }).subscribe(() => {
-        this.fetchPeriodos();
-        this.cancel();
-      });
-    } else {
-      this.servicio.create(payload).subscribe(() => {
-        this.fetchPeriodos();
-        this.form.reset();
-      });
-    }
+  if (this.editing()) {
+    const id = this.editing()!.id;
+    this.servicio.update({ id, ...payload }).subscribe(() => {
+      this.fetchPeriodos();
+      this.cancel();
+    });
+  } else {
+    this.servicio.create(payload).subscribe(() => {
+      this.fetchPeriodos();
+      this.form.reset();
+    });
   }
+}
 
   edit(periodo: Periodo) {
     this.editing.set(periodo);

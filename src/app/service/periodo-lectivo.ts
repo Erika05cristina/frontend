@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 export type Periodo = {
   id: number;
   nombre: string;
-  fechaInicio: Date;
-  fechaFin: Date;
+  fechaInicio: string;
+  fechaFin: string;
 }
 
 @Injectable({
